@@ -5,12 +5,13 @@ const router = express.Router();
 
 //create
 router.post("/agregarVuelo", (req, res) => {
-    const flight = flightSchema(req.body);
-    res.header("Access-Control-Allow-Origin", "*");
-    flight
-      .save()
-      .then((data) => res.json(data))
-      .catch((error) => res.json({ message: error}));
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "POST, UPDATE, DELTE, GET");
+  const flight = flightSchema(req.body);
+  flight
+    .save()
+    .then((data) => res.json(data))
+    .catch((error) => res.json({ message: error}));
 });
 
 //update one
