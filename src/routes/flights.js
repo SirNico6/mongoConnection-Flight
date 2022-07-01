@@ -6,6 +6,7 @@ const router = express.Router();
 //create
 router.post("/agregarVuelo", (req, res) => {
     const flight = flightSchema(req.body);
+    res.header("Access-Control-Allow-Origin", "*");
     flight
       .save()
       .then((data) => res.json(data))
@@ -16,6 +17,7 @@ router.post("/agregarVuelo", (req, res) => {
 router.put("/actualizarVuelo/:id", (req, res) => {
     const { id } = req.params;
     const { flightNum, destination, pilot } = req.body;
+    res.header("Access-Control-Allow-Origin", "*");
     flightSchema
       .updateOne({ _id: id }, { $set: { flightNum, destination, pilot } })
       .then((data) => res.json(data))
@@ -25,6 +27,7 @@ router.put("/actualizarVuelo/:id", (req, res) => {
 //delete one
 router.delete("/eliminarVuelo/:id", (req, res) => {
     const { id } = req.params;
+    res.header("Access-Control-Allow-Origin", "*");
     flightSchema
       .remove({ _id: id })
       .then((data) => res.json(data))
@@ -33,6 +36,7 @@ router.delete("/eliminarVuelo/:id", (req, res) => {
 
 //get one
 router.get("/obtenerVuelo/:id", (req, res) => {
+    res.header("Access-Control-Allow-Origin", "*");
     const { id } = req.params;
     flightSchema
       .findById(id)
@@ -42,6 +46,7 @@ router.get("/obtenerVuelo/:id", (req, res) => {
 
 //get all
 router.get("/obtenerVuelos", (req, res) => {
+    res.header("Access-Control-Allow-Origin", "*");
     flightSchema
       .find()
       .then((data) => res.json(data))
