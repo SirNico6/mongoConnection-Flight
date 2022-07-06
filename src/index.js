@@ -2,6 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
 const flightsRoutes = require("./routes/flights");
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const app = express();
 const port = process.env.port || 3000;
@@ -9,6 +11,10 @@ const port = process.env.port || 3000;
 //middleware
 app.use(express.json());
 app.use('/api', flightsRoutes);
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 
 
 //routes

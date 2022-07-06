@@ -3,15 +3,20 @@ const flightSchema = require("../models/flight");
 
 const router = express.Router();
 
+router.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "*");
+  next();
+});
+
 //create
 router.post("/agregarVuelo", (req, res) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "POST, UPDATE, DELTE, GET");
-  const flight = flightSchema(req.body);
-  flight
-    .save()
-    .then((data) => res.json(data))
-    .catch((error) => res.json({ message: error}));
+const flight = flightSchema(req.body);
+flight
+  .save()
+  .then((data) => res.json(data))
+  .catch((error) => res.json({ message: error }));
 });
 
 //update one
@@ -30,7 +35,7 @@ router.delete("/eliminarVuelo/:id", (req, res) => {
     const { id } = req.params;
     res.header("Access-Control-Allow-Origin", "*");
     flightSchema
-      .remove({ _id: id })
+      .remove({ flightNum: id })
       .then((data) => res.json(data))
       .catch((error) => res.json({message: error}));
 });
